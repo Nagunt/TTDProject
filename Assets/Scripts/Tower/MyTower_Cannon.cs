@@ -59,6 +59,12 @@ public class MyTower_Cannon : MyTower
         tr.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
+
+    private void Start()
+    {
+        Init();
+    }
+
     public override void Init()
     {
         attack = 30;
@@ -68,49 +74,51 @@ public class MyTower_Cannon : MyTower
 
     private IEnumerator Routine()
     {
-        if (delay > 0) delay -= Time.deltaTime;
-        if (delay < 0) delay = 0;
-
-        List<Collider2D> collider2Ds = new List<Collider2D>();
-        ContactFilter2D contactFilter2D = new ContactFilter2D();
-        contactFilter2D.SetLayerMask(LayerMask.GetMask("Monster"));
-        if (Physics2D.OverlapCollider(attackArea, contactFilter2D, collider2Ds) > 0)
+        while (true)
         {
-            if(target == null)
+            if (delay > 0) delay -= Time.deltaTime;
+            if (delay < 0) delay = 0;
+
+            List<Collider2D> collider2Ds = new List<Collider2D>();
+            ContactFilter2D contactFilter2D = new ContactFilter2D();
+            if (Physics2D.OverlapCollider(attackArea, contactFilter2D.NoFilter(), collider2Ds) > 0)
             {
-                target = collider2Ds[0].GetComponent<Monster>();
-            }
-            else
-            {
-                bool isTarget = false;
-                // 타겟이 범위 안에 계속 존재하면 유지한다.
-                for(int i = 0; i < collider2Ds.Count; ++i)
-                {
-                    Monster tempMonster = collider2Ds[i].GetComponent<Monster>();
-                    if (tempMonster == null) continue;
-                    if (tempMonster == target)
-                    {
-                        isTarget = true;
-                        break;
-                    }
-                }
-                if (isTarget == false)
+                if (target == null)
                 {
                     target = collider2Ds[0].GetComponent<Monster>();
                 }
+                else
+                {
+                    bool isTarget = false;
+                    // 타겟이 범위 안에 계속 존재하면 유지한다.
+                    for (int i = 0; i < collider2Ds.Count; ++i)
+                    {
+                        Monster tempMonster = collider2Ds[i].GetComponent<Monster>();
+                        if (tempMonster == null) continue;
+                        if (tempMonster == target)
+                        {
+                            isTarget = true;
+                            break;
+                        }
+                    }
+                    if (isTarget == false)
+                    {
+                        target = collider2Ds[0].GetComponent<Monster>();
+                    }
+                }
+                LookAt(barrel, target);
+                if (delay <= 0)
+                {
+                    Attack();
+                }
             }
-            LookAt(barrel, target);
-            if (delay <= 0)
+            else
             {
-                Attack();
+                target = null;
+                barrel.Rotate(new Vector3(0, 0, -2f));
             }
+            yield return 0;
         }
-        else
-        {
-            target = null;
-            //barrel.Rotate(new Vector3(0, 0, 2f));
-        }
-        yield return 0;
     }
 
 }
