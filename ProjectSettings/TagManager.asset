@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3376258319
+    locked: 0
+  - name: Unit
+    uniqueID: 4156314649
+    locked: 0
+  - name: Effect
+    uniqueID: 1506921115
+    locked: 0
