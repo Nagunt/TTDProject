@@ -81,7 +81,8 @@ public class MyTower_Cannon : MyTower
 
             List<Collider2D> collider2Ds = new List<Collider2D>();
             ContactFilter2D contactFilter2D = new ContactFilter2D();
-            if (Physics2D.OverlapCollider(attackArea, contactFilter2D.NoFilter(), collider2Ds) > 0)
+            contactFilter2D.SetLayerMask(LayerMask.GetMask("Monster"));
+            if (Physics2D.OverlapCollider(attackArea, contactFilter2D, collider2Ds) > 0)
             {
                 if (target == null)
                 {
