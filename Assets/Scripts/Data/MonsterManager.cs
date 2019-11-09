@@ -94,7 +94,8 @@ public class MonsterManager : MonoBehaviour
         {
             while(true)
             {
-                //탈출 조건 만들어야 함
+                if (turn > maxTurn[wave]) break;
+
                 List<int> turnInfo = waves[wave][turn];
 
                 spawnerId = turnInfo[0];
@@ -104,9 +105,13 @@ public class MonsterManager : MonoBehaviour
                 spawner[spawnerId].Spawn(database.GetData(monsterId));
 
                 yield return new WaitForSeconds(spawnDelay);
-            }
-            //이어서 만들어야 함
 
+                turn++;
+            }
+
+            wave++;
+
+            //yield return WaitUntil 준비 기간 동안 정지
         }
     }
 }
