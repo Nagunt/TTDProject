@@ -59,13 +59,14 @@ public class MyTower_Cannon : MyTower
         tr.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    private void Awake()
+    public override void Init()
     {
         attack = 30;
         attackDelay = 1f;
+        StartCoroutine(Routine());
     }
 
-    private void Update()
+    private IEnumerator Routine()
     {
         if (delay > 0) delay -= Time.deltaTime;
         if (delay < 0) delay = 0;
@@ -73,7 +74,7 @@ public class MyTower_Cannon : MyTower
         List<Collider2D> collider2Ds = new List<Collider2D>();
         ContactFilter2D contactFilter2D = new ContactFilter2D();
         contactFilter2D.SetLayerMask(LayerMask.GetMask("Monster"));
-        if (Physics2D.OverlapCollider(area, contactFilter2D, collider2Ds) > 0)
+        if (Physics2D.OverlapCollider(attackArea, contactFilter2D, collider2Ds) > 0)
         {
             if(target == null)
             {
@@ -109,6 +110,7 @@ public class MyTower_Cannon : MyTower
             target = null;
             //barrel.Rotate(new Vector3(0, 0, 2f));
         }
+        yield return 0;
     }
 
 }

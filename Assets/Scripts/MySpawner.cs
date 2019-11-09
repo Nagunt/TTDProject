@@ -13,7 +13,6 @@ public class MySpawner : MonoBehaviour
         {
             if(prevPoint != null)
             {
-                Debug.Log(i);
                 prevPoint.destination = transform.GetChild(i).position;
             }
             prevPoint = transform.GetChild(i).gameObject.AddComponent<MyMovePoint>();
