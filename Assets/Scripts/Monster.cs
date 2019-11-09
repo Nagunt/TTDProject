@@ -44,4 +44,9 @@ public class Monster : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = data.sprite;
         }
     }
+
+    public void GetDamage(int damage)
+    {
+
+    }
 }

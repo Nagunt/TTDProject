@@ -22,12 +22,12 @@ public class MySpawner : MonoBehaviour
         }
     }
 
-    public void Spawn(int id)
+    public void Spawn(MonsterData data)
     {
 
     }
 
-    public void Spawn(int id, float difficulty)
+    public void Spawn(MonsterData data, float difficulty)
     {
 
     }
