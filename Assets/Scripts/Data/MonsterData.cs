@@ -11,6 +11,18 @@ public class MonsterData : ScriptableObject, IData
     public int speed;
     public int damage;
 
+    public Sprite sprite;
+
+    public MonsterData(MonsterData data)
+    {
+        id = data.id;
+        monsterName = data.monsterName;
+        description = data.description;
+        hp = data.hp;
+        speed = data.speed;
+        damage = data.damage;
+    }
+
     public void SetData(Dictionary<string, object> parsedData)
     {
         id = (int)parsedData["id"];
@@ -19,5 +31,15 @@ public class MonsterData : ScriptableObject, IData
         hp = (int)parsedData["hp"];
         speed = (int)parsedData["speed"];
         damage = (int)parsedData["damage"];
+
+        string spriteName = (string)parsedData["sprite"];
+        sprite = Resources.Load<Sprite>($"Sprites/{spriteName}");
+      
+    }
+
+    public void SetDifficulty(float difficulty)
+    {
+        hp = (int)(hp * difficulty);
+        damage = (int)(damage * difficulty);
     }
 }
