@@ -6,11 +6,13 @@ public class MyTower_Cannon : MyTower
 {
     private float delay = 0;
     private Monster target;
-
+    [Header("- Attribute")]
     [SerializeField]
     private Transform barrel;
     [SerializeField]
     private Transform bulletPos;
+    [SerializeField]
+    private GameObject bulletEffect;
     [SerializeField]
     private GameObject bulletPrefab;
 
@@ -21,35 +23,46 @@ public class MyTower_Cannon : MyTower
 
     private IEnumerator _Attack(Monster _target)
     {
-        delay = 1f;
+        delay = attackDelay;
+
         GameObject newBullet = Instantiate(bulletPrefab);
         Vector3 firstPos = bulletPos.position;
         newBullet.transform.position = firstPos;
+        bulletEffect.SetActive(true);
+        newBullet.SetActive(true);
 
         float deltaTime = 0f;
-        while (deltaTime < 0.05f)
+        while (deltaTime < 0.1f)
         {
             yield return null;
             deltaTime += Time.deltaTime;
             if (_target == null) break;
             newBullet.transform.position = Vector3.Lerp(firstPos, _target.transform.position, deltaTime / 0.2f);
+            LookAt(newBullet.transform, _target);
         }
 
         if(_target != null)
         {
             newBullet.transform.position = _target.transform.position;
-            _target?.GetDamage(30);
+            _target?.GetDamage(attack);
+            // 몹을 느려지게 하는 코드 삽입.
         }
-
+        bulletEffect.SetActive(false);
         Destroy(newBullet);
     }
 
-    private void LookAt(Monster _target)
+    private void LookAt(Transform tr, Monster _target)
     {
         Vector3 targetPos = _target.transform.position;
-        Vector3 dir = targetPos - barrel.position;
+        Vector3 dir = targetPos - tr.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        barrel.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        tr.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    private void Awake()
+    {
+        attack = 30;
+        attackDelay = 1f;
     }
 
     private void Update()
@@ -85,8 +98,8 @@ public class MyTower_Cannon : MyTower
                     target = collider2Ds[0].GetComponent<Monster>();
                 }
             }
-            LookAt(target);
-            if (delay == 0)
+            LookAt(barrel, target);
+            if (delay <= 0)
             {
                 Attack();
             }
