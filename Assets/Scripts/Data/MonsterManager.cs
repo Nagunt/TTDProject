@@ -14,19 +14,26 @@ public class MonsterManager : MonoBehaviour
         Init();
     }
 
+    public GameObject monsterPrefab;
     public MonsterDatabase database;
     public MySpawner[] spawner;
+
+    public Monster InstantiateMonster()
+    {
+        Monster monster = Instantiate(monsterPrefab).GetComponent<Monster>();
+        return monster;
+    }
 
     //Wave, Turn, spawner/monsterId/delay
     Dictionary<int, Dictionary<int, List<int>>> waves;
 
     private void Init()
     {
+        waves = new Dictionary<int, Dictionary<int, List<int>>>();
+        maxTurn = new Dictionary<int, int>();
+
         using (StreamReader reader = new StreamReader("Assets/Resources/Database/CSVFiles/waveManagement.csv"))
         {
-            waves = new Dictionary<int, Dictionary<int, List<int>>>();
-            maxTurn = new Dictionary<int, int>();
-
             string nextSign = "#Next";
             string endSign = "#End";
 
@@ -38,6 +45,9 @@ public class MonsterManager : MonoBehaviour
             while(true)
             {
                 Dictionary<int, List<int>> waveInfo = new Dictionary<int, List<int>>();
+
+                turn = 1;
+
                 while (true)
                 {
                     string readLine = reader.ReadLine();
@@ -60,15 +70,18 @@ public class MonsterManager : MonoBehaviour
                     turnInfo.Add(int.Parse(splitedLine[offset + 1]));           //monsterId
                     turnInfo.Add(int.Parse(splitedLine[offset + 2]));           //delay
 
+                    Debug.Log($"wave {wave} turn {turn} : {turnInfo[0]}, {turnInfo[1]}, {turnInfo[2]}");
+                    
                     waveInfo.Add(turn, turnInfo);
 
                     turn++;
                 }
+                turn--;
                 maxTurn.Add(wave, turn);
 
-                if (isEnd) break;
-
                 waves.Add(wave, waveInfo);
+
+                if (isEnd) break;
 
                 wave++;
 
@@ -77,12 +90,16 @@ public class MonsterManager : MonoBehaviour
 
             maxWave = wave;
         }
+
+        StartCoroutine(GameRoutine()); //임시
     }
 
     int maxWave;
     Dictionary<int, int> maxTurn;           
     IEnumerator GameRoutine()
     {
+        yield return new WaitForSeconds(1f);
+
         int wave = 1;
         int turn = 1;
 
@@ -92,9 +109,22 @@ public class MonsterManager : MonoBehaviour
 
         while(true)
         {
+            Debug.Log($"Now Wave : {wave}");
+
+            if (wave > maxWave)
+            {
+                wave = 1;
+            }
+
+            turn = 1;
+
             while(true)
             {
-                if (turn > maxTurn[wave]) break;
+                if (turn > maxTurn[wave])
+                {
+                    break;
+                }
+                Debug.Log($"turn : {turn} / maxTurn : {maxTurn[wave]}");
 
                 List<int> turnInfo = waves[wave][turn];
 
@@ -111,6 +141,7 @@ public class MonsterManager : MonoBehaviour
 
             wave++;
 
+            yield return null;
             //yield return WaitUntil 준비 기간 동안 정지
         }
     }

@@ -18,3 +18,4 @@ MonoBehaviour:
   hp: 1
   speed: 1
   damage: 10
+  sprite: {fileID: 21300000, guid: b46764be2dbade7449de41b8caf321fe, type: 3}

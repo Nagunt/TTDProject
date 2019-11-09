@@ -34,7 +34,6 @@ public class MonsterData : ScriptableObject, IData
 
         string spriteName = (string)parsedData["sprite"];
         sprite = Resources.Load<Sprite>($"Sprites/{spriteName}");
-      
     }
 
     public void SetDifficulty(float difficulty)
