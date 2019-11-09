@@ -31,7 +31,7 @@ public class MyGameManager : MonoBehaviour
                         for(int i = 0; i < spawners.Length; ++i)
                         {
                             //스포너
-                            spawners[i].Spawn(1);
+                            //spawners[i].Spawn(1);
                         }
                         yield return new WaitForSeconds(1f);
                         timeWave--;
