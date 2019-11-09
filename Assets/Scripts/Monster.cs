@@ -6,6 +6,7 @@ public class Monster : MonoBehaviour
 {
     MonsterData data;
     Vector3 direction;
+    Vector3 destVec;
 
     private void Update()
     {
@@ -13,10 +14,15 @@ public class Monster : MonoBehaviour
 
         if (direction != null)
             transform.Translate(direction * spd * Time.deltaTime);
+
+        if ((destVec - transform.position).magnitude < 0.1f)
+            transform.position = destVec;
     }
 
     public void Move(Vector3 dest)
     {
+        destVec = dest;
+
         Vector3 dir = dest - transform.position;
         dir.Normalize();
 
