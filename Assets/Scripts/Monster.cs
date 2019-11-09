@@ -11,20 +11,22 @@ public class Monster : MonoBehaviour
     {
         int spd = data.speed;
 
-        transform.Translate(direction * spd * Time.deltaTime);
+        if (direction != null)
+            transform.Translate(direction * spd * Time.deltaTime);
     }
 
-    public void Move(Vector3 dir)
+    public void Move(Vector3 dest)
     {
+        Vector3 dir = dest - transform.position;
+        dir.Normalize();
+
         direction = dir;
     }
 
-    public void Init(MonsterData _data, Vector3 dir)
+    public void Init(MonsterData _data)
     {
         data = _data;
         data.SetDifficulty(1f);
-
-        direction = dir;
 
         if (data.sprite)
         {
@@ -32,12 +34,10 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public void Init(MonsterData _data, Vector3 dir, float difficulty)
+    public void Init(MonsterData _data, float difficulty)
     {
         data = _data;
         data.SetDifficulty(difficulty);
-
-        direction = dir;
 
         if (data.sprite)
         {
