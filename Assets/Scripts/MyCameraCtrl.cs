@@ -68,7 +68,7 @@ public class MyCameraCtrl : MonoBehaviour
             Vector2 direction = mousePosition - (Vector2)Input.mousePosition;
             if (direction.sqrMagnitude > 0.1f)
             {
-                transform.Translate(direction * Time.deltaTime);
+                transform.Translate(direction * 0.01f * Time.deltaTime);
                 AdjustCameraPosition();
                 direction = Input.mousePosition;
             }
