@@ -4,21 +4,11 @@ using UnityEngine;
 
 public class MyTower : MonoBehaviour
 {
-    protected float delay;
-
-    private void Start()
-    {
-        delay = 0;
-    }
-
-    private void Update()
-    {
-        if (delay > 0) delay -= Time.deltaTime;
-    }
+    [SerializeField]
+    protected Collider2D area;
 
     public virtual void Attack()
     {
-
 
     }
 

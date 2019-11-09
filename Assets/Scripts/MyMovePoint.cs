@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyEnemy : MonoBehaviour
-{
-    public void Move(Vector3 pos)
-    {
-
-    }
-}
-
 public class MyMovePoint : MonoBehaviour
 {
     public bool isLast;
@@ -26,8 +18,8 @@ public class MyMovePoint : MonoBehaviour
                 {
                     if (colliderArray[i].transform.position == transform.position)
                     {
-                        MyEnemy target = colliderArray[i].GetComponent<MyEnemy>();
-                        target.Move(destination);
+                        Monster target = colliderArray[i].GetComponent<Monster>();
+                        target?.Move(destination);
                     }
                 }
             }
