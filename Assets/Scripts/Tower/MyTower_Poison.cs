@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyTower_TimeStone : MyTower
+public class MyTower_Poison : MyTower
 {
     private float delay = 0;
     [Header("- Attribute")]
@@ -24,10 +24,10 @@ public class MyTower_TimeStone : MyTower
         Physics2D.OverlapCollider(attackArea, contactFilter2D, collider2Ds);
 
         int shootCount = 0;
-        for(int i = 0; i < collider2Ds.Count; ++i)
+        for (int i = 0; i < collider2Ds.Count; ++i)
         {
             if (collider2Ds[i] == null) continue;
-            if (shootCount >= 5) break;
+            if (shootCount >= 3) break;
             shootCount += 1;
             Monster target = collider2Ds[i].GetComponent<Monster>();
             StartCoroutine(Shoot(target));
@@ -50,10 +50,10 @@ public class MyTower_TimeStone : MyTower
                 newBullet.transform.position = Vector3.Lerp(firstPos, _target.transform.position, deltaTime / 0.5f);
             }
 
-            if(_target != null)
+            if (_target != null)
             {
                 newBullet.transform.position = _target.transform.position;
-                _target?.GetDamage(attack);
+                _target?.GetDamageByTime(attack, 2f);
             }
             Destroy(newBullet);
         }
@@ -61,8 +61,8 @@ public class MyTower_TimeStone : MyTower
 
     public override void Init()
     {
-        attack = 7;
-        attackDelay = 1.5f;
+        attack = 10;
+        attackDelay = 1.3f;
         StartCoroutine(Routine());
     }
 
