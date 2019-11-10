@@ -14,6 +14,9 @@ public class Monster : MonoBehaviour
     public Image hp_bar_unfilled;
     bool isDamaged = false;
 
+    public Collider2D detectCol;
+
+    float hp;
     float max_hp;
 
     private void Awake()
@@ -25,19 +28,49 @@ public class Monster : MonoBehaviour
     {
         if (isDamaged)
         {
-            hp_bar.fillAmount = (float)data.hp / max_hp;
+            hp_bar.fillAmount = hp / max_hp;
         }
 
-        if (data.hp <= 0)
+        if (hp <= 0)
             DieCallback();
 
         float spd = (float)data.speed;
+        
+        List<Collider2D> collider2Ds = new List<Collider2D>();
+        ContactFilter2D contactFilter2D = new ContactFilter2D();
+        contactFilter2D.SetLayerMask(LayerMask.GetMask("Monster"));
+        if (Physics2D.OverlapCollider(detectCol, contactFilter2D, collider2Ds) > 0)
+        {
+            foreach (var col in collider2Ds)
+            {
+                MonsterData d = col.GetComponent<Monster>().data;
+
+                if (d.id == 4)
+                {
+                    hp += 20 * Time.deltaTime;
+
+                    if (hp > max_hp)
+                    {
+                        hp = max_hp;
+
+                        hp_bar.gameObject.SetActive(false);
+                        hp_bar_unfilled.gameObject.SetActive(false);
+                        isDamaged = false;
+                    }
+                }
+                if (d.id == 3)
+                {
+                    spd *= 1.5f;
+                }
+            }
+        }
 
         if (direction != null)
             transform.Translate(direction * spd * Time.deltaTime);
 
         if ((destVec - transform.position).magnitude < 0.1f)
             transform.position = destVec;
+
     }
 
     void DieCallback()
@@ -70,6 +103,7 @@ public class Monster : MonoBehaviour
         data.SetDifficulty(1f);
 
         max_hp = data.hp;
+        hp = max_hp;
 
         if (data.sprite)
         {
@@ -83,6 +117,7 @@ public class Monster : MonoBehaviour
         data.SetDifficulty(difficulty);
 
         max_hp = data.hp;
+        hp = max_hp;
 
         if (data.sprite)
         {
@@ -92,7 +127,7 @@ public class Monster : MonoBehaviour
 
     public void GetDamage(int damage)
     {
-        data.hp -= damage;
+        hp -= damage;
 
         if (!isDamaged)
         {
