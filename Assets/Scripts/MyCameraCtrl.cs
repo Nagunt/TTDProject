@@ -23,6 +23,7 @@ public class MyCameraCtrl : MonoBehaviour
         minSize = 1;
         maxSize = Mathf.Min((rightUpPos.position.x - leftDownPos.position.x) * .5f, (rightUpPos.position.y - leftDownPos.position.y) * .5f);
         mainCamera = GetComponent<Camera>();
+        mainCamera.orthographicSize = maxSize;
         if (mainCamera.orthographicSize > maxSize) mainCamera.orthographicSize = maxSize;
         if (mainCamera.orthographicSize < minSize) mainCamera.orthographicSize = minSize;
         StartCoroutine(MouseDragRoutine());
