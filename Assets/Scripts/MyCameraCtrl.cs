@@ -61,20 +61,18 @@ public class MyCameraCtrl : MonoBehaviour
     private IEnumerator MouseDragRoutine()
     {
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false);
-        Debug.Log("StartRoutine");
         Vector2 mousePosition = Input.mousePosition;
         while (Input.GetMouseButton(0))
         {
             Vector2 direction = mousePosition - (Vector2)Input.mousePosition;
             if (direction.sqrMagnitude > 0.1f)
             {
-                transform.Translate(direction * 0.01f * Time.deltaTime);
+                transform.Translate(direction * .5f * Time.deltaTime);
                 AdjustCameraPosition();
-                direction = Input.mousePosition;
+                mousePosition = Input.mousePosition;
             }
             yield return 0;
         }
-        Debug.Log("EndRoutine");
         StartCoroutine(MouseDragRoutine());
     }
 

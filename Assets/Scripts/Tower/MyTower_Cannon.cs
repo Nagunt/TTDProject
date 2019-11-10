@@ -59,11 +59,6 @@ public class MyTower_Cannon : MyTower
         tr.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    private void Start()
-    {
-        Init();
-    }
-
     public override void Init()
     {
         attack = 30;
