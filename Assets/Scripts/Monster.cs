@@ -8,10 +8,18 @@ public class Monster : MonoBehaviour
     Vector3 direction;
     Vector3 destVec;
 
-    SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+    }
 
     private void Update()
     {
+        if (data.hp <= 0)
+            DieCallback();
+
         float spd = (float)data.speed;
 
         if (direction != null)
@@ -19,6 +27,11 @@ public class Monster : MonoBehaviour
 
         if ((destVec - transform.position).magnitude < 0.1f)
             transform.position = destVec;
+    }
+
+    void DieCallback()
+    {
+        Destroy(gameObject);
     }
 
     public void Move(Vector3 dest)
@@ -29,6 +42,15 @@ public class Monster : MonoBehaviour
         dir.Normalize();
 
         direction = dir;
+
+        LookAt(spriteRenderer.transform, dest);
+    }
+
+    private void LookAt(Transform tr, Vector3 dest)
+    {
+        Vector3 dir = dest - tr.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        tr.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     public void Init(MonsterData _data)
@@ -38,7 +60,6 @@ public class Monster : MonoBehaviour
 
         if (data.sprite)
         {
-            spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = data.sprite;
         }
     }
@@ -50,13 +71,12 @@ public class Monster : MonoBehaviour
 
         if (data.sprite)
         {
-            spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = data.sprite;
         }
     }
 
     public void GetDamage(int damage)
     {
-
+        data.hp -= damage;
     }
 }
