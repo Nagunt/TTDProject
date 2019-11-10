@@ -2237,7 +2237,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151191094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -4339,7 +4339,7 @@ MonoBehaviour:
   grid: {fileID: 1857407797}
   mainCamera: {fileID: 739405006}
   towerParent: {fileID: 1974491493}
-  test: {fileID: 2574896319748112914, guid: 826dd9ee5c3dccc428b17ea53df3801e, type: 3}
+  test: {fileID: 5379734081305682738, guid: 9d186b523e0e8824db07120ed69518e8, type: 3}
 --- !u!1 &1886042188
 GameObject:
   m_ObjectHideFlags: 0
