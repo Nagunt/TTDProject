@@ -16,6 +16,7 @@ public class MySpawner : MonoBehaviour
                 prevPoint.destination = transform.GetChild(i).position;
             }
             prevPoint = transform.GetChild(i).gameObject.AddComponent<MyMovePoint>();
+            prevPoint.key = name;
             prevPoint.isLast = i == transform.childCount - 1;
 
             if (i == 0) spawnPoint = prevPoint.transform.position;
@@ -25,6 +26,7 @@ public class MySpawner : MonoBehaviour
     public void Spawn(MonsterData data)
     {
         Monster monster = MonsterManager.Instance.InstantiateMonster();
+        monster.name = name;
         monster.Init(data);
         monster.transform.position = spawnPoint;
     }
