@@ -7,8 +7,6 @@ public class MyTower_TimeStone : MyTower
     private float delay = 0;
     [Header("- Attribute")]
     [SerializeField]
-    private Transform barrel;
-    [SerializeField]
     private GameObject bulletPrefab;
 
     public override void Attack()
