@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class Monster : MonoBehaviour
     Vector3 destVec;
 
     public SpriteRenderer spriteRenderer;
+    public Image hp_bar;
+    public Image hp_bar_unfilled;
+    bool isDamaged = false;
+
+    float max_hp;
 
     private void Awake()
     {
@@ -17,6 +23,11 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
+        if (isDamaged)
+        {
+            hp_bar.fillAmount = (float)data.hp / max_hp;
+        }
+
         if (data.hp <= 0)
             DieCallback();
 
@@ -58,6 +69,8 @@ public class Monster : MonoBehaviour
         data = _data;
         data.SetDifficulty(1f);
 
+        max_hp = data.hp;
+
         if (data.sprite)
         {
             spriteRenderer.sprite = data.sprite;
@@ -69,6 +82,8 @@ public class Monster : MonoBehaviour
         data = _data;
         data.SetDifficulty(difficulty);
 
+        max_hp = data.hp;
+
         if (data.sprite)
         {
             spriteRenderer.sprite = data.sprite;
@@ -78,5 +93,33 @@ public class Monster : MonoBehaviour
     public void GetDamage(int damage)
     {
         data.hp -= damage;
+
+        if (!isDamaged)
+        {
+            isDamaged = true;
+            hp_bar.gameObject.SetActive(true);
+            hp_bar_unfilled.gameObject.SetActive(true);
+        }
+    }
+
+    public void GetDamageByTime(int damage, float time)
+    {
+        StartCoroutine(DotDamage(damage, time));
+    }
+
+    IEnumerator DotDamage(int damage, float time)
+    {
+        float timer = 0f;
+        while(timer <= time)
+        {
+            timer += 0.1f;
+
+            float percentage = timer / time;
+            int dotDamage = (int)(damage * percentage);
+
+            GetDamage(dotDamage);
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
