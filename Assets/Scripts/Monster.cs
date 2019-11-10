@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
-    MonsterData data;
+    public MonsterData data;
     Vector3 direction;
     Vector3 destVec;
 

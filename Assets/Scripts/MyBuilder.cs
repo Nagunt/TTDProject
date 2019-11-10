@@ -24,6 +24,15 @@ public class MyBuilder : MonoBehaviour
         }
     }
 
+    public void Build(MyTower tower)
+    {
+        if (buildRoutine == null)
+        {
+            buildRoutine = BuildRoutine(tower);
+            StartCoroutine(buildRoutine);
+        }
+    }
+
     private IEnumerator BuildRoutine(MyTower tower)
     {
         WaitUntil uiCheck = new WaitUntil(() => EventSystem.current.IsPointerOverGameObject() == false);
