@@ -11,6 +11,11 @@ public class MyTower_Laser : MyTower
     [SerializeField]
     private SpriteRenderer laserEffect;
 
+    public void SetAngle(float angle)
+    {
+        barrel.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
     public override void Attack()
     {
         StartCoroutine(_Attack());
