@@ -2575,8 +2575,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449603811}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 40, y: 24, z: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 30.938559, y: 30.96996, z: 1}
   m_Children: []
   m_Father: {fileID: 1857407798}
   m_RootOrder: 2
@@ -2619,7 +2619,7 @@ SpriteRenderer:
   m_SortingLayerID: -918708977
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7035d734d63d0b34c92fe65cb5a2da8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3a8ba99c7a04da469971adb7856a07f, type: 3}
   m_Color: {r: 0.40870214, g: 1, b: 0.4009434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4339,7 +4339,7 @@ MonoBehaviour:
   grid: {fileID: 1857407797}
   mainCamera: {fileID: 739405006}
   towerParent: {fileID: 1974491493}
-  test: {fileID: 5379734081305682738, guid: 9d186b523e0e8824db07120ed69518e8, type: 3}
+  test: {fileID: 2574896319748112914, guid: 826dd9ee5c3dccc428b17ea53df3801e, type: 3}
 --- !u!1 &1886042188
 GameObject:
   m_ObjectHideFlags: 0
