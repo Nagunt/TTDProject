@@ -145,4 +145,14 @@ public class MonsterManager : MonoBehaviour
             //yield return WaitUntil 준비 기간 동안 정지
         }
     }
+
+    public void GameOver()
+    {
+        StopAllCoroutines();
+    }
+
+    public void GameStart()
+    {
+        Init();
+    }
 }
