@@ -25,7 +25,7 @@ public class MyTower_Cannon : MyTower
     {
         delay = attackDelay;
 
-        GameObject newBullet = Instantiate(bulletPrefab);
+        GameObject newBullet = Instantiate(bulletPrefab, transform);
         Vector3 firstPos = bulletPos.position;
         newBullet.transform.position = firstPos;
         bulletEffect.SetActive(true);

@@ -211,6 +211,7 @@ MonoBehaviour:
   buildUI: {fileID: 6078641346667056211}
   buildArea: {fileID: 6647741448881545019}
   attackArea: {fileID: 5071924269878244208}
+  cost: 20
   bulletPrefab: {fileID: 5937606869210381719}
 --- !u!1 &5071924269878244210
 GameObject:

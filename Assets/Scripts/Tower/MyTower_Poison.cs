@@ -36,7 +36,7 @@ public class MyTower_Poison : MyTower
 
         IEnumerator Shoot(Monster _target)
         {
-            GameObject newBullet = Instantiate(bulletPrefab);
+            GameObject newBullet = Instantiate(bulletPrefab, transform);
             Vector3 firstPos = transform.position;
             newBullet.transform.position = firstPos;
             newBullet.SetActive(true);

@@ -140,6 +140,7 @@ public class MonsterManager : MonoBehaviour
             }
 
             wave++;
+            TimeManager.Instance.time += 100;
 
             yield return null;
             //yield return WaitUntil 준비 기간 동안 정지

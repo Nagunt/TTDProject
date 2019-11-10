@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance { get; private set; } = null;
@@ -56,6 +56,7 @@ public class TimeManager : MonoBehaviour
         {
             Destroy(t.gameObject);
         }
+        SceneManager.LoadScene("Scene_Main");
     }
 
     public void GameStart()

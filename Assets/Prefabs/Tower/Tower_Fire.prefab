@@ -98,6 +98,7 @@ MonoBehaviour:
   buildUI: {fileID: 4195668265238728197}
   buildArea: {fileID: 3611934970068671853}
   attackArea: {fileID: 2883067199876952358}
+  cost: 30
   explodeEffect: {fileID: 4187224910357970973}
 --- !u!1 &2883067200129997576
 GameObject:

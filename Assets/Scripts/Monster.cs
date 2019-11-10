@@ -75,6 +75,7 @@ public class Monster : MonoBehaviour
 
     void DieCallback()
     {
+        TimeManager.Instance.time += 2;
         Destroy(gameObject);
     }
 

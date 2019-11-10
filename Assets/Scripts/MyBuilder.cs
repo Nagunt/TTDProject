@@ -12,25 +12,44 @@ public class MyBuilder : MonoBehaviour
     [SerializeField]
     private Transform towerParent;
 
-    public MyTower test;
     private IEnumerator buildRoutine;
-
-    public void Test()
-    {
-        if (buildRoutine == null)
-        {
-            buildRoutine = BuildRoutine(test);
-            StartCoroutine(buildRoutine);
-        }
-    }
 
     public void Build(MyTower tower)
     {
         if (buildRoutine == null)
         {
-            buildRoutine = BuildRoutine(tower);
+            if (TimeManager.Instance.time >= tower.cost)
+            {
+                buildRoutine = BuildRoutine(tower);
+                StartCoroutine(buildRoutine);
+            }
+        }
+    }
+
+    public void Remove()
+    {
+        if(buildRoutine == null)
+        {
+            buildRoutine = RemoveRoutine();
             StartCoroutine(buildRoutine);
         }
+    }
+
+    private IEnumerator RemoveRoutine()
+    {
+        bool isEnd = false;
+        while (isEnd == false)
+        {
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false);
+            Collider2D[] colliderArray = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), LayerMask.GetMask("BuildArea"));
+            if(colliderArray.Length > 0)
+            {
+                MyTower target = colliderArray[0].GetComponent<MyTower>();
+                target?.Remove();
+                isEnd = true;
+            }
+        }
+        buildRoutine = null;
     }
 
     private IEnumerator BuildRoutine(MyTower tower)
@@ -76,6 +95,10 @@ public class MyBuilder : MonoBehaviour
             {
                 break;
             }
+            if(TimeManager.Instance.time < newTower.cost)
+            {
+                break;
+            }
             yield return null;
         }
 
@@ -83,6 +106,7 @@ public class MyBuilder : MonoBehaviour
         {
             newTower.HideBuildUI();
             newTower.Init();
+            TimeManager.Instance.time -= newTower.cost;
         }
         else
         {

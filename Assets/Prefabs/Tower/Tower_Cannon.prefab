@@ -396,6 +396,7 @@ MonoBehaviour:
   buildUI: {fileID: 6326904632475612370}
   buildArea: {fileID: 6906137557828200378}
   attackArea: {fileID: 5040964378781453297}
+  cost: 10
   barrel: {fileID: 5040964378792503322}
   bulletPos: {fileID: 5040964376927013125}
   bulletEffect: {fileID: 5657608329083823858}

@@ -12,6 +12,8 @@ public class MyTower : MonoBehaviour
     protected Collider2D buildArea;
     [SerializeField]
     protected Collider2D attackArea;
+    [Header("- Cost")]
+    public int cost;
 
     protected float attackDelay;
     protected int attack;

@@ -429,6 +429,7 @@ MonoBehaviour:
   buildUI: {fileID: 8394144132935547737}
   buildArea: {fileID: 8964366835715893297}
   attackArea: {fileID: 7387370701946046436}
+  cost: 30
   barrel: {fileID: 7369377473506912145}
   laserEffect: {fileID: 3070309637091839770}
 --- !u!1 &7369377473535706232
