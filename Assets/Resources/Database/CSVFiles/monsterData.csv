@@ -1,8 +1,2 @@
 id,name,description,hp,speed,damage,sprite
-0,슬라임,점액질이다.,100,2,10,sprite_slime
-1,골렘,단단하지만 굼뜨다.,450,1,5,sprite_golem
-2,고블린,돈과 관련한 일에는 민첩하게 행동한다.,75,3,15,sprite_goblin
-3,바람의 정령,바람의 힘을 사용하는 정령이다.,100,1,20,sprite_wind_fairy
-4,나무의 정령,자연의 힘을 사용하는 정령이다.,200,1,20,sprite_wood_fairy
-5,얼음의 정령,얼음의 힘을 사용하는 정령이다.,100,10,20,sprite_ice_fairy
-6,불의 정령,,75,10,20,sprite_flame_fairy
+0,슬라임,슬라임이다.,1,1,10,monster_slime

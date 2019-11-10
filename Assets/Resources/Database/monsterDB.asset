@@ -14,9 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - {fileID: 11400000, guid: f08197562db4c30439122ad77cbfa9a9, type: 2}
-  - {fileID: 11400000, guid: 1e232c7a53c3d97408f1ca435faac392, type: 2}
-  - {fileID: 11400000, guid: f923c604b7d39df4382d11b61b8ce9d8, type: 2}
-  - {fileID: 11400000, guid: ec031f8204057cc4e9754c62f62d7e9d, type: 2}
-  - {fileID: 11400000, guid: 94b677924c8d10f4dac5f890a312b7b9, type: 2}
-  - {fileID: 11400000, guid: 1109ad56a512e724a8aa4c4caf19661f, type: 2}
-  - {fileID: 11400000, guid: 13733d71933afdb4c84d4fe75f53656f, type: 2}

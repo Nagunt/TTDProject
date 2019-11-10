@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   monsterName: "\uC2AC\uB77C\uC784"
-  description: "\uC810\uC561\uC9C8\uC774\uB2E4."
-  hp: 100
-  speed: 2
+  description: "\uC2AC\uB77C\uC784\uC774\uB2E4."
+  hp: 1
+  speed: 1
   damage: 10
   sprite: {fileID: 21300000, guid: b46764be2dbade7449de41b8caf321fe, type: 3}
