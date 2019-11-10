@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
+using UnityEditor;
 
 public class MonsterManager : MonoBehaviour
 {
@@ -10,13 +12,17 @@ public class MonsterManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        database = Resources.Load<MonsterDatabase>("Database/monsterDB");
+
 
         Init();
     }
 
     public GameObject monsterPrefab;
-    public MonsterDatabase database;
+    public static MonsterDatabase database;
     public MySpawner[] spawner;
+
+    public Text text;
 
     public Monster InstantiateMonster()
     {
@@ -27,11 +33,13 @@ public class MonsterManager : MonoBehaviour
     //Wave, Turn, spawner/monsterId/delay
     Dictionary<int, Dictionary<int, List<int>>> waves;
 
-    private void Init()
+    [MenuItem("Database/Build Monster DB")]
+    public static void BuildDB()
     {
-        waves = new Dictionary<int, Dictionary<int, List<int>>>();
-        maxTurn = new Dictionary<int, int>();
+        database = Resources.Load<MonsterDatabase>("Database/monsterDB");
 
+        Dictionary<int, Dictionary<int, List<int>>> waves = new Dictionary<int, Dictionary<int, List<int>>>();
+        Dictionary<int, int> maxTurn = new Dictionary<int, int>();
         using (StreamReader reader = new StreamReader("Assets/Resources/Database/CSVFiles/waveManagement.csv"))
         {
             string nextSign = "#Next";
@@ -42,7 +50,7 @@ public class MonsterManager : MonoBehaviour
 
             bool isEnd = false;
 
-            while(true)
+            while (true)
             {
                 Dictionary<int, List<int>> waveInfo = new Dictionary<int, List<int>>();
 
@@ -71,7 +79,7 @@ public class MonsterManager : MonoBehaviour
                     turnInfo.Add(int.Parse(splitedLine[offset + 2]));           //delay
 
                     Debug.Log($"wave {wave} turn {turn} : {turnInfo[0]}, {turnInfo[1]}, {turnInfo[2]}");
-                    
+
                     waveInfo.Add(turn, turnInfo);
 
                     turn++;
@@ -88,9 +96,16 @@ public class MonsterManager : MonoBehaviour
                 reader.BaseStream.Position = 0;
             }
 
-            maxWave = wave;
+            database.maxWave = wave;
         }
 
+        database.waves = waves;
+        database.maxTurn = maxTurn;
+    }
+
+    private void Init()
+    {
+        
         StartCoroutine(GameRoutine()); //임시
     }
 
@@ -98,6 +113,10 @@ public class MonsterManager : MonoBehaviour
     Dictionary<int, int> maxTurn;           
     IEnumerator GameRoutine()
     {
+        maxWave = database.maxWave;
+        maxTurn = database.maxTurn;
+        waves = database.waves;
+
         yield return new WaitForSeconds(1f);
 
         int wave = 1;

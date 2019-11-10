@@ -5,6 +5,11 @@ using UnityEngine;
 public class MonsterDatabase : ScriptableObject, IDatabase<MonsterData>
 {
     public List<MonsterData> monsters = new List<MonsterData>();
+    public Dictionary<int, int> maxTurn;
+    public int maxWave;
+
+
+    public Dictionary<int, Dictionary<int, List<int>>> waves;
 
     public void ClearDatabase()
     {
