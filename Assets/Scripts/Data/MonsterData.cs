@@ -21,6 +21,8 @@ public class MonsterData : ScriptableObject, IData
         hp = data.hp;
         speed = data.speed;
         damage = data.damage;
+
+        sprite = data.sprite;
     }
 
     public void SetData(Dictionary<string, object> parsedData)

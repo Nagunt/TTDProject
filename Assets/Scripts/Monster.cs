@@ -8,9 +8,11 @@ public class Monster : MonoBehaviour
     Vector3 direction;
     Vector3 destVec;
 
+    SpriteRenderer spriteRenderer;
+
     private void Update()
     {
-        int spd = data.speed;
+        float spd = (float)data.speed;
 
         if (direction != null)
             transform.Translate(direction * spd * Time.deltaTime);
@@ -36,7 +38,8 @@ public class Monster : MonoBehaviour
 
         if (data.sprite)
         {
-            GetComponent<SpriteRenderer>().sprite = data.sprite;
+            spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = data.sprite;
         }
     }
 
@@ -47,7 +50,8 @@ public class Monster : MonoBehaviour
 
         if (data.sprite)
         {
-            GetComponent<SpriteRenderer>().sprite = data.sprite;
+            spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = data.sprite;
         }
     }
 

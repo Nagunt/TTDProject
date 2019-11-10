@@ -27,7 +27,7 @@ public class MySpawner : MonoBehaviour
     {
         Monster monster = MonsterManager.Instance.InstantiateMonster();
         monster.name = name;
-        monster.Init(data);
+        monster.Init(new MonsterData(data));
         monster.transform.position = spawnPoint;
     }
 
